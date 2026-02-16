@@ -11,13 +11,13 @@ O objetivo principal é fornecer clareza sobre para onde o dinheiro está indo, 
 - Controlar gastos diários, semanais e mensais
 - Registrar receitas e despesas
 - Visualizar gráficos de evolução financeira
-- Categorizar gastos (ex: Alimentação, Transporte, Lazer)
+- Categorizar gastos (ex: Alimentação, Transporte, Lazer) 
 - Ajudar no planejamento financeiro pessoal
 
 ---
 
 ## 🚀 Funcionalidades Principais
-
+ 
 ### 1. Cadastro de Transações
 - Adicionar receitas
 - Adicionar despesas
