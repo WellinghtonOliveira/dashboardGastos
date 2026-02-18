@@ -6,7 +6,7 @@ O **Dashboard de Gastos Pessoais** é uma aplicação web desenvolvida para auxi
 O objetivo principal é fornecer clareza sobre para onde o dinheiro está indo, ajudando na tomada de decisões financeiras mais conscientes.
 
 ---
-
+ 
 ## 🎯 Objetivos
 - Controlar gastos diários, semanais e mensais
 - Registrar receitas e despesas
