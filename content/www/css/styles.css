@@ -1,0 +1,194 @@
+:root {
+    --glass: rgba(15, 15, 20, 0.4);
+    --border: rgba(255, 255, 255, 0.08);
+    --green: #00ffa3;
+    --red: #ff4d4d;
+    --blue: #00d1ff;
+    --gold: #ffcc00;
+    --text-main: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "JetBrains Mono", "Inter", monospace;
+}
+
+body {
+    height: 100vh;
+    background: #050505;
+    /* Fundo preto puro para máxima transparência visual */
+    color: var(--text-main);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: hidden;
+}
+
+.glass {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+/* HEADER: Compact Indicators (12 indicadores em linha única) */
+.header-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+}
+
+.metric-item {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-item .label {
+    font-size: 9px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.metric-item .val {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+/* MAIN GRID */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 15px;
+    flex: 1;
+    min-height: 0;
+    /* Essencial para não estourar */
+}
+
+/* COLUNAS */
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: 0;
+}
+
+.panel {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.panel-title {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: bold;
+}
+
+/* GRÁFICOS COMPACTOS */
+.chart-box {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+}
+
+/* TABELAS TÉCNICAS */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.data-table tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.data-table td {
+    padding: 6px 0;
+}
+
+.data-table .amt {
+    text-align: right;
+    font-weight: bold;
+}
+
+/* FORMULÁRIO COMPACTO */
+.mini-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+input,
+select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: white;
+    padding: 5px;
+    font-size: 11px;
+    border-radius: 4px;
+}
+
+button {
+    grid-column: span 2;
+    background: var(--blue);
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+/* PROGRESS BARS */
+.progress-bg {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin-top: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.tag {
+    font-size: 8px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid;
+}
+
+/* SCROLLBAR CUSTOM */
+.scroll {
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
