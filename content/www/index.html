@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Financial HUD | Pro Edition</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+
+  <div class="header-metrics glass">
+    <div class="metric-item">
+      <span class="label">Entradas</span> 
+      <span class="val" style="color: var(--green)">R$ 12.450,00</span>
+    </div>
+    <div class="metric-item">
+      <span class="label">Saídas</span>
+      <span class="val" style="color: var(--red)">R$ 5.120,00</span>
+    </div>
+    <div class="metric-item">
+      <span class="label">Saldo Real</span>
+      <span class="val">R$ 7.330,00</span>
+    </div>
+    <div class="metric-item">
+      <span class="label">Investimento</span>
+      <span class="val" style="color: var(--gold)">R$ 45.200,00</span>
+    </div>
+    <div class="metric-item">
+      <span class="label">Taxa de Econ.</span>
+      <span class="val">42%</span>
+      <div class="progress-bg">
+        <div class="progress-fill" style="width: 42%; background: var(--green)"></div>
+      </div>
+    </div>
+    <div class="metric-item">
+      <span class="label">Proj. 30 Dias</span>
+      <span class="val" style="color: var(--blue)">+ R$ 2.100</span>
+    </div>
+  </div>
+
+  <div class="main-grid">
+
+    <div class="col">
+      <div class="glass panel">
+        <div class="panel-header"><span class="panel-title">Lançamento Rápido</span></div>
+        <div class="mini-form">
+          <input type="text" placeholder="Descrição" id="f-desc">
+          <input type="number" placeholder="Valor" id="f-val">
+          <select id="f-cat">
+            <option>Alimentação</option>
+            <option>Fixo</option>
+            <option>Lazer</option>
+            <option>À Toa</option>
+          </select>
+          <select id="f-tipo">
+            <option value="saida">Saída</option>
+            <option value="entrada">Entrada</option>
+          </select>
+          <button onclick="adicionar()">ADICIONAR MOVIMENTAÇÃO</button>
+        </div>
+      </div>
+
+      <div class="glass panel">
+        <div class="panel-header"><span class="panel-title">Cartões de Crédito</span></div>
+        <div class="data-table">
+          <div style="margin-bottom:10px">
+            <div style="display:flex; justify-content:space-between; font-size:11px">
+              <span>Visa Infinite</span>
+              <span>R$ 2.450 / 10k</span>
+            </div>
+            <div class="progress-bg">
+              <div class="progress-fill" style="width: 24%; background: var(--red)"></div>
+            </div>
+          </div>
+          <div style="margin-bottom:10px">
+            <div style="display:flex; justify-content:space-between; font-size:11px">
+              <span>Mastercard Black</span>
+              <span>R$ 800 / 15k</span>
+            </div>
+            <div class="progress-bg">
+              <div class="progress-fill" style="width: 5%; background: var(--red)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="glass panel">
+        <div class="panel-header"><span class="panel-title">Fluxo de Caixa Diário</span></div>
+        <div class="chart-box">
+          <canvas id="flowChart"></canvas>
+        </div>
+      </div>
+      <div class="glass panel">
+        <div class="panel-header"><span class="panel-title">Últimas Movimentações</span></div>
+        <div class="scroll">
+          <table class="data-table">
+            <tbody id="log-list">
+              <tr>
+                <td>25/02</td>
+                <td>Mercado Central</td>
+                <td><span class="tag" style="color:var(--blue)">FIXO</span></td>
+                <td class="amt">R$ 450,00</td>
+              </tr>
+              <tr>
+                <td>24/02</td>
+                <td>Assinatura Game</td>
+                <td><span class="tag" style="color:var(--red)">À TOA</span></td>
+                <td class="amt">R$ 59,90</td>
+              </tr>
+              <tr>
+                <td>24/02</td>
+                <td>Dividendos</td>
+                <td><span class="tag" style="color:var(--green)">PROVENTO</span></td>
+                <td class="amt">+ R$ 120,00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="glass panel">
+        <div class="panel-header"><span class="panel-title">Gastos por Categoria</span></div>
+        <div class="chart-box">
+          <canvas id="catChart"></canvas>
+        </div>
+      </div>
+      <div class="glass panel">
+        <div class="panel-header"><span class="panel-title">Metas de Patrimônio</span></div>
+        <div class="scroll">
+          <div style="margin-bottom:12px">
+            <span class="label" style="font-size:10px">Reserva de Emergência</span>
+            <div style="display:flex; justify-content:space-between; font-size:11px; margin-top:3px">
+              <span>R$ 15.000,00</span><span>75%</span>
+            </div>
+            <div class="progress-bg">
+              <div class="progress-fill" style="width: 75%; background: var(--gold)"></div>
+            </div>
+          </div>
+          <div>
+            <span class="label" style="font-size:10px">Liberdade Financeira</span>
+            <div style="display:flex; justify-content:space-between; font-size:11px; margin-top:3px">
+              <span>R$ 45.200,00</span><span>15%</span>
+            </div>
+            <div class="progress-bg">
+              <div class="progress-fill" style="width: 15%; background: var(--blue)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/dashboard.js"></script>
+</body>
+
+</html>
