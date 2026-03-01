@@ -1,7 +1,7 @@
 Chart.defaults.color = 'rgba(255,255,255,0.5)';
 Chart.defaults.font.size = 10;
 
-const state = {
+const state = { 
     movimentacoes: [
         { tipo: "saida", valor: 450, categoria: "Fixo" },
         { tipo: "saida", valor: 59.90, categoria: "À Toa" },
