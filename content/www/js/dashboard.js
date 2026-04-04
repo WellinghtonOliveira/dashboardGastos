@@ -1,5 +1,4 @@
-Chart.defaults.color = 'rgba(255,255,255,0.5)';
-Chart.defaults.font.size = 10;
+const { ipcRenderer } = require('electron');
 
 const state = { 
     movimentacoes: [
@@ -62,28 +61,6 @@ function atualizarGraficoCategorias() {
     catChart.update();
 }
 
-function adicionar() {
-    const desc = document.getElementById("f-desc").value;
-    const val = parseFloat(document.getElementById("f-val").value);
-    const cat = document.getElementById("f-cat").value;
-    const tipo = document.getElementById("f-tipo").value;
-
-    if (!desc || !val) return;
-
-    state.movimentacoes.push({
-        tipo,
-        valor: val,
-        categoria: cat
-    });
-
-    calcularResumo();
-    atualizarTabela();
-    atualizarGraficoCategorias();
-
-    document.getElementById("f-desc").value = "";
-    document.getElementById("f-val").value = "";
-}
-
 const flowChart = new Chart(document.getElementById("flowChart"), {
     type: "line",
     data: {
@@ -137,3 +114,11 @@ const catChart = new Chart(document.getElementById("catChart"), {
 calcularResumo();
 atualizarTabela();
 atualizarGraficoCategorias();
+
+// Listen for updates from control window
+ipcRenderer.on('update-transaction', (event, transaction) => {
+  state.movimentacoes.push(transaction);
+  calcularResumo();
+  atualizarTabela();
+  atualizarGraficoCategorias();
+});
