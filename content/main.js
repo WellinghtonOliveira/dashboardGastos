@@ -3,13 +3,13 @@ const wallpaper = require('electron-as-wallpaper')
 const path = require('path');
 
 
-let win // <<< GLOBAL
+let dashboardWin, controlWin // <<< GLOBAIS
 
 
-function createWindow() {
+function createDashboardWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
 
-  win = new BrowserWindow({
+  dashboardWin = new BrowserWindow({
     width: width,
     height: height,
     frame: false,
@@ -18,33 +18,59 @@ function createWindow() {
     movable: false,
     skipTaskbar: true,
     focusable: false,
+    show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true
     }
   });
 
+  dashboardWin.loadFile('./www/index.html')
 
-  win.loadFile('./www/index.html')
-
-  // começa ignorando clique
-  win.setIgnoreMouseEvents(true, { forward: true })
-
-  win.once('ready-to-show', () => {
-    wallpaper.attach(win)
+  dashboardWin.once('ready-to-show', () => {
+    wallpaper.attach(dashboardWin, {
+      transparent: true,
+      forwardMouseInput: true,
+      forwardKeyboardInput: true
+    })
   })
+}
+
+function createControlWindow() {
+  controlWin = new BrowserWindow({
+    width: 400,
+    height: 300,
+    resizable: true,
+    minimizable: true,
+    maximizable: false,
+    title: 'Painel de Controle - Dashboard',
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true
+    }
+  });
+
+  controlWin.loadFile('./www/control.html') // Criar um novo HTML para controle
+
+  controlWin.on('close', (event) => {
+    event.preventDefault()
+    controlWin.hide()
+  })
+
+  controlWin.show()
 }
 
 
 
 // ===== IPC =====
-ipcMain.on('enable-click', () => {
-  if (win) win.setIgnoreMouseEvents(false)
+ipcMain.on('add-transaction', (event, transaction) => {
+  if (dashboardWin) {
+    dashboardWin.webContents.send('update-transaction', transaction);
+  }
 })
 
-ipcMain.on('disable-click', () => {
-  if (win) win.setIgnoreMouseEvents(true, { forward: true })
+
+app.whenReady().then(() => {
+  createDashboardWindow()
+  createControlWindow()
 })
-
-
-app.whenReady().then(createWindow)
