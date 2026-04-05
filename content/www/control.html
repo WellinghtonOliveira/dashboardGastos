@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Painel de Controle - Dashboard</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+  <h2>Painel de Controle</h2>
+  <div class="control-panel">
+    <h3>Lançamento Rápido</h3>
+    <input type="text" placeholder="Descrição" id="f-desc">
+    <input type="number" placeholder="Valor" id="f-val">
+    <select id="f-tipo">
+      <option value="entrada">Entrada</option>
+      <option value="saida">Saída</option>
+    </select>
+    <select id="f-cat">
+      <option value="Fixo">Fixo</option>
+      <option value="À Toa">À Toa</option>
+      <option value="Provento">Provento</option>
+    </select>
+    <button id="add-btn">Adicionar</button>
+  </div>
+
+  <script src="./js/control.js"></script>
+</body>
+
+</html>
