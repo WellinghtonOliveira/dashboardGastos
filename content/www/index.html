@@ -44,21 +44,20 @@
 
     <div class="col">
       <div class="glass panel">
-        <div class="panel-header"><span class="panel-title">Lançamento Rápido</span></div>
-        <div class="mini-form">
-          <input type="text" placeholder="Descrição" id="f-desc">
-          <input type="number" placeholder="Valor" id="f-val">
-          <select id="f-cat">
-            <option>Alimentação</option>
-            <option>Fixo</option>
-            <option>Lazer</option>
-            <option>À Toa</option>
-          </select>
-          <select id="f-tipo">
-            <option value="saida">Saída</option>
-            <option value="entrada">Entrada</option>
-          </select>
-          <button onclick="adicionar()">ADICIONAR MOVIMENTAÇÃO</button>
+        <div class="panel-header"><span class="panel-title">Últimas Movimentações</span></div>
+        <div class="data-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Categoria</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody id="log-list">
+            </tbody>
+          </table>
         </div>
       </div>
 
