@@ -1,5 +1,5 @@
 :root {
-    --glass: rgba(15, 15, 20, 0.4);
+    --glass: rgba(15, 15, 20, 0.2);
     --border: rgba(255, 255, 255, 0.08);
     --green: #00ffa3;
     --red: #ff4d4d;
@@ -18,8 +18,8 @@
 
 body {
     height: 100vh;
-    background: #050505;
-    /* Fundo preto puro para máxima transparência visual */
+    background: transparent;
+    /* Fundo transparente para ver o papel de parede */
     color: var(--text-main);
     padding: 15px;
     display: flex;
