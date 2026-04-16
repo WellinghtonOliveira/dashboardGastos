@@ -1,0 +1,433 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #667eea;
+  --secondary: #764ba2;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #06b6d4;
+  --dark: #1f2937;
+  --light: #f3f4f6;
+  --border: rgba(255, 255, 255, 0.1);
+  --text: rgba(255, 255, 255, 0.95);
+  --text-dim: rgba(255, 255, 255, 0.6);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  background: transparent;
+  color: var(--text);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  padding: clamp(12px, 2vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vh, 30px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+  background: rgba(102, 126, 234, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: clamp(16px, 2vh, 24px);
+  animation: slideDown 0.6s ease-out;
+  flex-shrink: 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.header h1 {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+}
+
+.header-date {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: var(--text-dim);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ==================== METRICS GRID ==================== */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: clamp(12px, 1.5vw, 20px);
+  animation: fadeIn 0.8s ease-out;
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.metric-card {
+  padding: clamp(14px, 2vh, 20px);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  animation: scaleIn 0.6s ease-out;
+  min-height: 80px;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(102, 126, 234, 0.15);
+}
+
+.metric-card.green {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.metric-card.red {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.metric-card.blue {
+  background: rgba(6, 182, 212, 0.08);
+  border-color: rgba(6, 182, 212, 0.2);
+}
+
+.metric-card.purple {
+  background: rgba(168, 85, 247, 0.08);
+  border-color: rgba(168, 85, 247, 0.2);
+}
+
+.metric-icon {
+  font-size: clamp(28px, 3.5vw, 36px);
+  min-width: 50px;
+  text-align: center;
+}
+
+.metric-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.metric-value {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.metric-detail {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* ==================== CHARTS ==================== */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(12px, 1.5vw, 20px);
+  animation: fadeIn 0.9s ease-out;
+  flex-shrink: 0;
+}
+
+.chart-container {
+  background: rgba(102, 126, 234, 0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: clamp(14px, 2vh, 20px);
+  transition: all 0.3s ease;
+  min-height: 250px;
+}
+
+.chart-container:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(102, 126, 234, 0.12);
+}
+
+.chart-container h3 {
+  font-size: clamp(14px, 1.8vw, 18px);
+  margin-bottom: 12px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.chart-container canvas {
+  max-height: 220px;
+  width: 100% !important;
+}
+
+/* ==================== TRANSACTIONS ==================== */
+.transactions-section {
+  background: rgba(102, 126, 234, 0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: clamp(14px, 2vh, 20px);
+  animation: fadeIn 1s ease-out;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.transactions-section h3 {
+  font-size: clamp(14px, 1.8vw, 18px);
+  margin-bottom: 12px;
+  color: var(--text);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.transactions-table {
+  overflow-x: auto;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.transactions-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(12px, 1.2vw, 14px);
+}
+
+.transactions-table thead {
+  border-bottom: 1px solid rgba(102, 126, 234, 0.4);
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.transactions-table th {
+  padding: clamp(8px, 1vh, 12px);
+  text-align: left;
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.transactions-table td {
+  padding: clamp(8px, 1vh, 12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.transactions-table tr:hover {
+  background: rgba(102, 126, 234, 0.08);
+}
+
+.transactions-table tr:last-child td {
+  border-bottom: none;
+}
+
+.transaction-type {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.transaction-type.entrada {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.transaction-type.saida {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.transaction-value {
+  font-weight: 700;
+  font-size: clamp(12px, 1.1vw, 14px);
+  white-space: nowrap;
+}
+
+.transaction-value.entrada {
+  color: #10b981;
+}
+
+.transaction-value.saida {
+  color: #ef4444;
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(10px, 1.5vh, 14px) clamp(12px, 1.5vw, 16px);
+  background: rgba(102, 126, 234, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: var(--text-dim);
+  font-size: clamp(11px, 1vw, 12px);
+  animation: fadeIn 1.2s ease-out;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#sync-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#sync-status.synced {
+  color: #10b981;
+}
+
+#sync-status.synced::before {
+  content: '✓';
+  animation: none;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#sync-status.syncing {
+  animation: spin 1s linear infinite;
+}
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.25);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.4);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .header h1 {
+    font-size: 18px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .metric-card {
+    min-height: 70px;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transactions-table {
+    font-size: 12px;
+  }
+}
+
+
