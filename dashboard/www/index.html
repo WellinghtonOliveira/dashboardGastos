@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>💰 Dashboard Financeiro | Real-time</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-content">
+        <div>
+          <h1>💰 Dashboard Financeiro</h1>
+          <div class="header-date">
+            <span id="current-date"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MÉTRICAS PRINCIPAIS -->
+    <section class="metrics-grid">
+      <div class="metric-card green">
+        <div class="metric-icon">📈</div>
+        <div class="metric-content">
+          <span class="metric-label">Entradas</span>
+          <span class="metric-value" id="total-entrada">R$ 0,00</span>
+          <span class="metric-detail" id="count-entrada">0 transações</span>
+        </div>
+      </div>
+
+      <div class="metric-card red">
+        <div class="metric-icon">📉</div>
+        <div class="metric-content">
+          <span class="metric-label">Saídas</span>
+          <span class="metric-value" id="total-saida">R$ 0,00</span>
+          <span class="metric-detail" id="count-saida">0 transações</span>
+        </div>
+      </div>
+
+      <div class="metric-card blue">
+        <div class="metric-icon">💎</div>
+        <div class="metric-content">
+          <span class="metric-label">Saldo</span>
+          <span class="metric-value" id="total-saldo">R$ 0,00</span>
+          <span class="metric-detail" id="percent-saldo">0%</span>
+        </div>
+      </div>
+
+      <div class="metric-card purple">
+        <div class="metric-icon">📊</div>
+        <div class="metric-content">
+          <span class="metric-label">Taxa Poupança</span>
+          <span class="metric-value" id="savings-rate">0%</span>
+          <span class="metric-detail">do total de entrada</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRÁFICOS -->
+    <section class="charts-grid">
+      <!-- Gráfico de Entradas vs Saídas -->
+      <div class="chart-container">
+        <h3>📊 Fluxo Financeiro</h3>
+        <canvas id="flowChart"></canvas>
+      </div>
+
+      <!-- Gráfico de Categorias -->
+      <div class="chart-container">
+        <h3>🏷️ Gastos por Categoria</h3>
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </section>
+
+    <!-- ÚLTIMAS MOVIMENTAÇÕES -->
+    <section class="transactions-section">
+      <h3>📝 Últimas Transações</h3>
+      <div class="transactions-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Categoria</th>
+              <th>Tipo</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody id="transactions-list">
+            <tr>
+              <td colspan="5" style="text-align: center; padding: 20px; color: rgba(255,255,255,0.5);">
+                Carregando transações...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- STATUS -->
+    <footer class="footer">
+      <span id="sync-status">🔄 Sincronizando...</span>
+      <span id="last-update">Última atualização: agora</span>
+    </footer>
+  </div>
+
+  <script src="./js/dashboard.js"></script>
+</body>
+
+</html>
+
