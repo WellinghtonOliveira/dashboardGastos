@@ -1,0 +1,437 @@
+/* ==================== RESET & VARIABLES ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 
+  TEORIA DAS CORES - Paleta Harmônica
+  Base: Azul-Violeta (cor primária do app)
+  Complementar: Laranja/Dourado para acentos
+  Análogos: Roxo, Índigo para profundidade
+*/
+:root {
+  /* Cores principais - Azul Índigo */
+  --primary: #4f46e5;
+  --primary-light: #6366f1;
+  --primary-dark: #4338ca;
+  
+  /* Cores secundárias - Violeta */
+  --secondary: #7c3aed;
+  --secondary-light: #8b5cf6;
+  
+  /* Cores de acento - Dourado/Laranja (complementar) */
+  --accent: #f59e0b;
+  --accent-light: #fbbf24;
+  
+  /* Cores de status */
+  --success: #10b981;
+  --success-light: #34d399;
+  --danger: #ef4444;
+  --danger-light: #f87171;
+  
+  /* Tons neutros - base cinza azulado */
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+}
+
+/* ==================== BASE ==================== */
+body {
+  /* Gradiente mais sofisticado com cor complementar */
+  background: linear-gradient(135deg, 
+    var(--primary) 0%, 
+    var(--secondary) 50%,
+    var(--primary-dark) 100%
+  );
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  overflow: hidden;
+}
+
+/* ==================== HEADER ==================== */
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.app-header .subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ==================== CARD ==================== */
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.panel-header h3 {
+  color: var(--gray-900);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.panel-header .icon {
+  font-size: 20px;
+}
+
+/* ==================== ALERTS (TOAST FLUTUANTE) ==================== */
+.alert-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.alert-container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.alert {
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  min-width: 250px;
+  text-align: center;
+}
+
+.alert.error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+}
+
+.alert.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+}
+
+/* ==================== FORM ==================== */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  color: var(--gray-600);
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--gray-200);
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background: var(--gray-50);
+  color: var(--gray-800);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+}
+
+.form-group input::placeholder {
+  color: var(--gray-500);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ==================== LAYOUT HORIZONTAL ==================== */
+.control-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 24px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-section {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.list-section .list-header {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  margin-bottom: 12px;
+}
+
+.list-section .transaction-list {
+  max-height: calc(100vh - 200px);
+}
+
+/* ==================== BUTTON ==================== */
+.btn-primary {
+  width: 100%;
+  padding: 14px 20px;
+  margin-top: 8px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ==================== TRANSACTIONS LIST ==================== */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.list-header h4 {
+  color: var(--gray-900);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.list-header .count {
+  background: var(--primary);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.transaction-list {
+  max-height: calc(100vh - 280px);
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.transaction-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==================== TRANSACTION ITEM ==================== */
+.transaction-item {
+  background: var(--gray-100);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
+}
+
+.transaction-item:hover {
+  background: var(--gray-200);
+}
+
+.transaction-item.saida {
+  border-left-color: var(--danger);
+}
+
+.transaction-item.entrada {
+  border-left-color: var(--success);
+}
+
+.trans-icon {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 10px;
+}
+
+.trans-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.trans-descricao {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trans-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.trans-categoria {
+  font-size: 11px;
+  color: var(--gray-500);
+  background: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.trans-data {
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+.trans-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.trans-valor {
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.trans-valor.entrada {
+  color: var(--success);
+}
+
+.trans-valor.saida {
+  color: var(--danger);
+}
+
+.btn-delete {
+  background: transparent;
+  color: var(--gray-500);
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+/* ==================== EMPTY STATE ==================== */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gray-500);
+}
+
+.empty-state .icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 14px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 520px) {
+  body {
+    padding: 16px;
+  }
+  
+  .control-panel {
+    padding: 20px;
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
