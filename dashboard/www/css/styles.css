@@ -32,6 +32,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  overscroll-behavior: contain;
 }
 
 .container {
@@ -40,8 +41,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: clamp(16px, 2.5vh, 30px);
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 /* ==================== HEADER ==================== */
@@ -234,10 +235,12 @@ body {
   border-radius: 12px;
   padding: clamp(14px, 2vh, 20px);
   animation: fadeIn 1s ease-out;
-  flex: 1;
-  min-height: 0;
+  flex: 0 0 auto;
+  min-height: 200px;
+  max-height: 40vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .transactions-section h3 {
@@ -248,11 +251,33 @@ body {
   flex-shrink: 0;
 }
 
-.transactions-table {
-  overflow-x: auto;
-  overflow-y: auto;
-  flex: 1;
-  min-height: 0;
+/* Botões de scroll */
+.scroll-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.scroll-btn {
+  background: rgba(102, 126, 234, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.scroll-btn:hover {
+  background: rgba(102, 126, 234, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.scroll-btn:active {
+  transform: scale(0.95);
 }
 
 .transactions-table table {
@@ -261,14 +286,18 @@ body {
   font-size: clamp(12px, 1.2vw, 14px);
 }
 
-.transactions-table thead {
-  border-bottom: 1px solid rgba(102, 126, 234, 0.4);
-  position: sticky;
-  top: 0;
-  background: rgba(0, 0, 0, 0.2);
+/* Tabela separada em header e body */
+.transactions-header {
+  flex-shrink: 0;
+  overflow-x: auto;
 }
 
-.transactions-table th {
+.transactions-header table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions-header th {
   padding: clamp(8px, 1vh, 12px);
   text-align: left;
   color: var(--text-dim);
@@ -276,18 +305,33 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.4);
+  background: rgba(0, 0, 0, 0.2);
 }
 
-.transactions-table td {
+.transactions-body {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.transactions-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(12px, 1.2vw, 14px);
+}
+
+.transactions-body td {
   padding: clamp(8px, 1vh, 12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.transactions-table tr:hover {
+.transactions-body tr:hover {
   background: rgba(102, 126, 234, 0.08);
 }
 
-.transactions-table tr:last-child td {
+.transactions-body tr:last-child td {
   border-bottom: none;
 }
 
