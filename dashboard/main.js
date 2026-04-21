@@ -15,6 +15,17 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
+// ==== AUTO-INICIAR COM O WINDOWS ====
+app.setLoginItemSettings({
+  openAtLogin: true,
+  openAsHidden: true,
+  path: process.execPath,
+  args: ['--hidden']
+});
+
+// Verificar se foi iniciado com --hidden (início automático)
+const startHidden = process.argv.includes('--hidden');
+
 // ==== FUNÇÕES DE ARQUIVO ====
 function loadTransactions() {
   try {
@@ -52,14 +63,14 @@ function createDashboardWindow() {
     resizable: false,
     movable: false,
     skipTaskbar: true,
-    focusable: false,
+    focusable: true,
     hasShadow: false,
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       enableRemoteModule: false,
-      sandbox: true
+      sandbox: false
     }
   });
 
@@ -67,12 +78,15 @@ function createDashboardWindow() {
   dashboardWin.loadFile('./www/index.html')
 
   dashboardWin.once('ready-to-show', () => {
-    dashboardWin.show();
+    // Só mostrar se não foi iniciado oculto (início automático)
+    if (!startHidden) {
+      dashboardWin.show();
+    }
     
     // Anexar como wallpaper
     wallpaper.attach(dashboardWin, {
       transparent: true,
-      forwardMouseInput: false,
+      forwardMouseInput: true,
       forwardKeyboardInput: false
     })
     
