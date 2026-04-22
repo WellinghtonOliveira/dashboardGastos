@@ -10,6 +10,25 @@ const formatDate = (dateStr) => {
   return new Date(year, month - 1, day);
 };
 
+// ==================== SCROLL HANDLER ====================
+document.addEventListener('DOMContentLoaded', () => {
+  const table = document.getElementById('transactions-body');
+  const scrollUp = document.getElementById('scroll-up');
+  const scrollDown = document.getElementById('scroll-down');
+  
+  if (table && scrollUp && scrollDown) {
+    const scrollAmount = 150;
+    
+    scrollUp.addEventListener('click', () => {
+      table.scrollTop -= scrollAmount;
+    });
+    
+    scrollDown.addEventListener('click', () => {
+      table.scrollTop += scrollAmount;
+    });
+  }
+});
+
 // ==================== CARREGAR DADOS ====================
 async function loadTransactions() {
   try {
