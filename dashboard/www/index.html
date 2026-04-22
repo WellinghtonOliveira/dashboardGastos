@@ -80,7 +80,7 @@
     <!-- ÚLTIMAS MOVIMENTAÇÕES -->
     <section class="transactions-section">
       <h3>📝 Últimas Transações</h3>
-      <div class="transactions-table">
+      <div class="transactions-header">
         <table>
           <thead>
             <tr>
@@ -88,9 +88,13 @@
               <th>Descrição</th>
               <th>Categoria</th>
               <th>Tipo</th>
-              <th>Valor</th>
+              <th>Valor</th>  
             </tr>
           </thead>
+        </table>
+      </div>
+      <div class="transactions-body" id="transactions-body">
+        <table>
           <tbody id="transactions-list">
             <tr>
               <td colspan="5" style="text-align: center; padding: 20px; color: rgba(255,255,255,0.5);">
@@ -99,6 +103,10 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="scroll-buttons">
+        <button class="scroll-btn" id="scroll-up">▲</button>
+        <button class="scroll-btn" id="scroll-down">▼</button>
       </div>
     </section>
 
