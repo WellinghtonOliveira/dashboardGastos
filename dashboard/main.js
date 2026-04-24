@@ -25,6 +25,7 @@ app.setLoginItemSettings({
 
 // Verificar se foi iniciado com --hidden (início automático)
 const startHidden = process.argv.includes('--hidden');
+const isDashboard = process.argv.includes('--dashboard');
 
 // ==== FUNÇÕES DE ARQUIVO ====
 function loadTransactions() {
@@ -63,7 +64,7 @@ function createDashboardWindow() {
     resizable: false,
     movable: false,
     skipTaskbar: true,
-    focusable: true,
+    focusable: false,
     hasShadow: false,
     show: false,
     webPreferences: {
@@ -78,19 +79,16 @@ function createDashboardWindow() {
   dashboardWin.loadFile('./www/index.html')
 
   dashboardWin.once('ready-to-show', () => {
-    // Só mostrar se não foi iniciado oculto (início automático)
-    if (!startHidden) {
+    if (!startHidden || isDashboard) {
       dashboardWin.show();
     }
-    
-    // Anexar como wallpaper
+
     wallpaper.attach(dashboardWin, {
       transparent: true,
       forwardMouseInput: true,
       forwardKeyboardInput: false
     })
-    
-    // Começar a observar mudanças
+
     watchTransactionFile();
   })
 
