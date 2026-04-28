@@ -1,10 +1,11 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu, nativeImage } = require('electron')
+const { app, BrowserWindow, screen, ipcMain, Tray, Menu, nativeImage } = require('electron')
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const { spawn } = require('child_process');
 
 const isDashboard = process.argv.includes('--dashboard');
+const startHidden = process.argv.includes('--hidden');
 
 let controlWin
 let tray = null
@@ -23,43 +24,33 @@ if (!gotTheLock) {
   });
 }
 
-// Caminho para arquivo de configuração (pasta AppData compartilhada)
 const dataDir = path.join(os.homedir(), 'AppData', 'Local', 'dashboardGastos');
 const dataPath = path.join(dataDir, 'transactions.json');
 
-// Garantir que a pasta de dados existe
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-// ==== INICIAR DASHBOARD AUTOMATICAMENTE ====
 function startDashboard() {
-  let dashboardEntry;
+  const appPath = app.getAppPath();
 
-  if (app.isPackaged) {
-    dashboardEntry = path.join(process.resourcesPath, 'dashboard', 'main.js');
-  } else {
-    dashboardEntry = path.join(__dirname, '..', 'dashboard', 'main.js');
-  }
-
-  dashboardProcess = spawn(process.execPath, [dashboardEntry, '--dashboard'], {
+  dashboardProcess = spawn(process.execPath, [appPath, '--dashboard'], {
     detached: true,
-    stdio: 'ignore'
+    stdio: 'inherit'
   });
 
   dashboardProcess.unref();
-  console.log('Dashboard iniciado automaticamente');
 }
 
-// ==== AUTO-INICIAR COM O WINDOWS ====
-app.setLoginItemSettings({
-  openAtLogin: true,
-  openAsHidden: true,
-  path: process.execPath,
-  args: ['--hidden']
-});
+if (!isDashboard) {
+  app.setLoginItemSettings({
+    openAtLogin: true,
+    openAsHidden: true,
+    path: process.execPath,
+    args: ['--hidden']
+  });
+}
 
-// ==== FUNÇÕES DE ARQUIVO ====
 function loadTransactions() {
   try {
     if (fs.existsSync(dataPath)) {
@@ -80,7 +71,6 @@ function saveTransactions(transactions) {
   }
 }
 
-// ==== TRAY ====
 function createTray() {
   const iconPath = path.join(__dirname, 'icon.png');
   const trayIcon = nativeImage.createFromPath(iconPath);
@@ -110,7 +100,7 @@ function createTray() {
     }
   ]);
 
-  tray.setToolTip('💰 Dashboard de Gastos');
+  tray.setToolTip('Dashboard de Gastos');
   tray.setContextMenu(contextMenu);
 
   tray.on('click', () => {
@@ -125,14 +115,13 @@ function createTray() {
   });
 }
 
-// ==== WINDOWS ====
 function createControlWindow() {
   const iconPath = path.join(__dirname, 'icon.png');
 
   controlWin = new BrowserWindow({
     width: 900,
     height: 650,
-    title: '💰 Painel de Controle - Dashboard de Gastos',
+    title: 'Painel de Controle - Dashboard de Gastos',
     icon: fs.existsSync(iconPath) ? iconPath : undefined,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -140,7 +129,7 @@ function createControlWindow() {
     }
   });
 
-  controlWin.loadFile('./www/control.html')
+  controlWin.loadFile(path.join(__dirname, 'www', 'control.html'));
 
   controlWin.on('minimize', (event) => {
     event.preventDefault();
@@ -163,7 +152,6 @@ function createControlWindow() {
   });
 }
 
-// ==== IPC ====
 ipcMain.handle('add-transaction', async (event, transaction) => {
   const transactions = loadTransactions();
   transactions.push({
@@ -185,21 +173,18 @@ ipcMain.handle('delete-transaction', async (event, index) => {
   return transactions;
 });
 
-// 🚀 INICIALIZAÇÃO
 app.whenReady().then(() => {
-  createControlWindow()
-  createTray()
-
-  // 🔒 EVITA LOOP INFINITO
-  if (!isDashboard) {
-    startDashboard()
+  if (isDashboard) {
+    require('./dashboard/main.js');
+  } else {
+    createControlWindow();
+    createTray();
+    startDashboard();
   }
-})
+});
 
 app.on('before-quit', () => {
   app.isQuitting = true;
 });
 
-app.on('window-all-closed', () => {
-  // mantém no tray
-});
+app.on('window-all-closed', () => { });
