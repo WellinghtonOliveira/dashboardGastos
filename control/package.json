@@ -29,9 +29,11 @@
     ],
     "extraResources": [
       {
-        "from": "../dashboard",
+        "from": "dashboard",
         "to": "dashboard",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "win": {
