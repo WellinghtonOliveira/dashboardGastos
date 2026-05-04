@@ -11,8 +11,7 @@ Os dados são armazenados localmente no computador do usuário.
 
 ---
 
-## ⚠️ Status do Projeto
-- Em desenvolvimento
+## Status do Projeto
 - Execução apenas local
 - Não está empacotado em `.exe`
 - Rodando via `npm start`
@@ -32,18 +31,15 @@ npm install
 ``
 npm start
 ``
-
+---
 ### Estrutura 
-
-````
 control/
- ├── main.js
- ├── preload.js
- ├── www/
- │    └── control.html
- ├── dashboard/
- │    ├── main.js
- │    ├── preload.js
- │    └── www/
- │         └── index.html
-````
+├── main.js
+├── preload.js
+├── www/
+│ └── control.html
+├── dashboard/
+│ ├── main.js
+│ ├── preload.js
+│ └── www/
+│ └── index.html
