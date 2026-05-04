@@ -33,6 +33,7 @@ npm start
 ``
 ---
 ### Estrutura 
+``
 control/
 ├── main.js
 ├── preload.js
@@ -43,3 +44,4 @@ control/
 │ ├── preload.js
 │ └── www/
 │ └── index.html
+``
