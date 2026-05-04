@@ -24,15 +24,19 @@ Os dados são armazenados localmente no computador do usuário.
 - Node.js instalado
 
 ### Instalação
+
 ``bash
 npm install
 ``
 ### Execução
+
 ``
 npm start
 ``
----
-### Estrutura 
+
+## Estrutura do Projeto
+
+```text
 control/
 |-- main.js
 |-- preload.js
